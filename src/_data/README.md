@@ -47,9 +47,11 @@ They would be converted to the following object:
 And would then be injected into your template within the `site.data` property
 so you could access your data like so:
 
-```jade
-h1= site.data.global.siteName //- Sample
-ul.menu
-  each val in site.data.menu
-    li= val.name //- Home, About
+```nunjucks
+<h1>{{site.data.global.siteName}}</h1> <!-- Sample -->
+<ul class="menu">
+{% for val in site.data.menu %}
+  <li>{{ val.name }}</li> <!-- Home, About -->
+{% endfor %}
+</ul>
 ```

@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import foldero from 'foldero';
-import jade from 'jade';
+import nunjucks from 'gulp-nunjucks-html';
 import yaml from 'js-yaml';
 
 export default function(gulp, plugins, args, config, taskTarget, browserSync) {
@@ -11,8 +11,8 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync) {
   let dest = path.join(taskTarget);
   let dataPath = path.join(dirs.source, dirs.data);
 
-  // Jade template compile
-  gulp.task('jade', () => {
+  // Nunjucks template compile
+  gulp.task('nunjucks', () => {
     let siteData = {};
     if (fs.existsSync(dataPath)) {
       // Convert directory to JS Object
@@ -49,22 +49,26 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync) {
     }
 
     return gulp.src([
-      path.join(dirs.source, '**/*.jade'),
+      path.join(dirs.source, '**/*.nunjucks'),
       '!' + path.join(dirs.source, '{**/\_*,**/\_*/**}')
     ])
     .pipe(plugins.changed(dest))
     .pipe(plugins.plumber())
-    .pipe(plugins.jade({
-      jade: jade,
-      pretty: true,
-      locals: {
-        config: config,
-        debug: true,
-        site: {
-          data: siteData
-        }
+    .pipe(plugins.data({
+      config: config,
+      debug: !args.production,
+      site: {
+        data: siteData
       }
     }))
+    .pipe(nunjucks({
+      searchPaths: [path.join(dirs.source)],
+      ext: '.html'
+    })
+    .on('error', function(err) {
+      plugins.util.log(err);
+    }))
+    .on('error', plugins.notify.onError(config.defaultNotification))
     .pipe(plugins.htmlmin({
       collapseBooleanAttributes: true,
       conservativeCollapse: true,

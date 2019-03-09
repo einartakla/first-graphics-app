@@ -6,22 +6,26 @@ This "Layouts" folder is designated for all page layouts.
 
 An example layout:
 
-```jade
-extend ./base
+```nunjucks
+{% extends "base.nunjucks" %}
 
 // Add extra stylesheets
-block append stylesheets
+{% block stylesheets %}{% endblock %}
 
-block content
+{% block content %}
   //- Provides layout level markup
-  .layout-wrapper.two-col
-    block first
+  <div class="layout-wrapper two-col">
+    {% block first %}
         //- Add first column content here
-    block second
+    {% endblock %}
+    {% block second %}
         //- Add second column content here
+    {% endblock %}
+  </div>
+{% endblock %}
 
 // Add extra scripts
-block append scripts
+{% block scripts %}{% endblock }
 ```
 
 > NOTE: The `append stylesheets` and `append scripts` blocks allow you to add on any layout-specific scripts or stylesheets.
@@ -47,17 +51,19 @@ yo yeogurt:layout three-col --layout=two-col
 
 This new layout will look something like this:
 
-```jade
-extend ./two-col
+```nunjucks
+{% extends "two-col.nunjucks" %}
 
 // Add extra stylesheets
-block append stylesheets
+{% block stylesheets %}{% endblock %}
 
-block content
+{% block content %}
   //- Provides layout level markup
-  .layout-wrapper.three-col
-    block three-col
+  <div class="layout-wrapper three-col">
+    {% block three-col %}{% endblock %}
+  </div>
+{% endblock %}
 
 // Add extra scripts
-block append scripts
+{% block scripts %}{% endblock }
 ```

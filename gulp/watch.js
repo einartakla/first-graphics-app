@@ -14,17 +14,18 @@ export default function(gulp, plugins, args, config, taskTarget, browserSync) {
         path.join(dirs.source, dirs.modules, '**/*.{scss,sass}')
       ], ['sass']);
 
-      // Jade Templates
+      // Nunjucks Templates
       gulp.watch([
-        path.join(dirs.source, '**/*.jade'),
+        path.join(dirs.source, '**/*.nunjucks'),
         path.join(dirs.source, dirs.data, '**/*.{json,yaml,yml}')
-      ], ['jade']);
+      ], ['nunjucks']);
+      
 
       // Copy
       gulp.watch([
         path.join(dirs.source, '**/*'),
         '!' + path.join(dirs.source, '{**/\_*,**/\_*/**}'),
-        '!' + path.join(dirs.source, '**/*.jade')
+        '!' + path.join(dirs.source, '**/*.nunjucks')
       ], ['copy']);
 
       // Images
