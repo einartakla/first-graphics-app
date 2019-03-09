@@ -2,18 +2,27 @@
 {% import "_modules/link/link.nunjucks" as link %}
 
 {% block headline %}My headline will go here{% endblock %}
-{% block byline %}Einar{% endblock %}
+{% block byline %}Eric Pakkala{% endblock %}
 {% block pubdate %}
     <time datetime="2019-03-09" pubdate>Mar. 9, 2019</time>
 {% endblock %}
 
 {% block content %}
 
-<div class="charts">
-  <div class="inline-chart" id="county-homicides"></div>
-  <div class="inline-chart" id="harvard-park-homicides"></div>
-</div>
+<section>
+<h3>A South L.A. neighborhood stands apart</h3>
+<p>Harvard Park's 2016 homicide total was its highest in at least 15 years despite a downward trend in killings across L.A. County.</p>
 
+
+<div class="charts">
+  <div class="inline-chart" id="county-homicides">
+    <h4 class="chart-title">County homicides</h4>
+  </div>
+  <div class="inline-chart" id="harvard-park-homicides">
+    <h4 class="chart-title">Harvard Park homicides</h4>
+  </div>
+</div>
+</section>
 
 
 <section>
